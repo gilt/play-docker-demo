@@ -16,18 +16,18 @@ RUN apt-get -y update
 RUN apt-get -y install oracle-java7-installer
 
 # install scala
-RUN wget http://www.scala-lang.org/files/archive/scala-2.10.1.tgz
-RUN tar zxf scala-2.10.1.tgz
-RUN mv scala-2.10.1 /usr/share/scala
- 
+RUN wget http://www.scala-lang.org/files/archive/scala-2.10.2.tgz
+RUN tar zxf scala-2.10.2.tgz
+RUN mv scala-2.10.2 /usr/share/scala
+
 RUN ln -s /usr/share/scala/bin/scala /usr/bin/scala
 RUN ln -s /usr/share/scala/bin/scalac /usr/bin/scalac
 RUN ln -s /usr/share/scala/bin/fsc /usr/bin/fsc
 RUN ln -s /usr/share/scala/bin/scaladoc /usr/bin/scaladoc
 RUN ln -s /usr/share/scala/bin/scalap /usr/bin/scalap
 
-# install sbt 
-RUN wget http://scalasbt.artifactoryonline.com/scalasbt/sbt-native-packages/org/scala-sbt/sbt/0.12.3/sbt.deb
+# install sbt
+RUN wget http://scalasbt.artifactoryonline.com/scalasbt/sbt-native-packages/org/scala-sbt/sbt/0.12.4/sbt.deb
 RUN dpkg -i sbt.deb
 RUN apt-get update
 RUN apt-get -y install sbt
