@@ -2,32 +2,19 @@ FROM ubuntu
 MAINTAINER roland@gilt.com
 
 # basic stuff
-RUN apt-get -y update
-RUN apt-get -y install emacs23
-RUN apt-get -y install git
-RUN apt-get -y install wget
-RUN apt-get -y install curl
+RUN apt-install -y install git curl
 
 # install java
-RUN echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-RUN apt-get -y install python-software-properties
-RUN add-apt-repository -y ppa:webupd8team/java
-RUN apt-get -y update
-RUN apt-get -y install oracle-java7-installer
+RUN apt-get install -y openjdk-6-jdk
 
 # install scala
-RUN wget http://www.scala-lang.org/files/archive/scala-2.10.2.tgz
-RUN tar zxf scala-2.10.2.tgz
-RUN mv scala-2.10.2 /usr/share/scala
+RUN curl -o /tmp/scala-2.10.2.tgz http://www.scala-lang.org/files/archive/scala-2.10.2.tgz
+RUN tar xzf /tmp/scala-2.10.2.tgz -C /usr/share/
+RUN ln -s /usr/share/scala-2.10.2 /usr/share/scala
 
-RUN ln -s /usr/share/scala/bin/scala /usr/bin/scala
-RUN ln -s /usr/share/scala/bin/scalac /usr/bin/scalac
-RUN ln -s /usr/share/scala/bin/fsc /usr/bin/fsc
-RUN ln -s /usr/share/scala/bin/scaladoc /usr/bin/scaladoc
-RUN ln -s /usr/share/scala/bin/scalap /usr/bin/scalap
+# symlink scala binary to /usr/bin
+RUN for i in scala scalc fsc scaladoc scalap; do ln -s /usr/share/scala/bin/${i} /usr/bin/${i}; done
 
 # install sbt
-RUN wget http://scalasbt.artifactoryonline.com/scalasbt/sbt-native-packages/org/scala-sbt/sbt/0.12.4/sbt.deb
-RUN dpkg -i sbt.deb
-RUN apt-get update
-RUN apt-get -y install sbt
+RUN curl -o /tmp/sbt.deb  http://scalasbt.artifactoryonline.com/scalasbt/sbt-native-packages/org/scala-sbt/sbt/0.12.4/sbt.deb
+RUN dpkg -i /tmp/sbt.deb
