@@ -1,8 +1,7 @@
 FROM ubuntu
-MAINTAINER roland@gilt.com
 
 # basic stuff
-RUN apt-install -y install git curl
+RUN apt-get install -y git curl
 
 # install java
 RUN apt-get install -y openjdk-6-jdk
